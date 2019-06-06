@@ -6,7 +6,8 @@
         <label for="cep">CEP</label>
         <input
           type="text"
-          name="cep"
+          name="cep-input"
+          id="cep"
           v-model="cep"
           minlenght="8"
           maxlength="9"
@@ -50,12 +51,12 @@ export default {
       promise
         .then(res => res.json())
         .then(adr => {
-          this.address = adr;
+          this.address = adr
           this.$nextTick(() => {
             if (!this.address.cep) {
               this.msg = 'CEP não encontrado. Tente novamente.'
             }
-          });
+          })
         }, err => {
           if (err) {
             this.msg = 'Houve um problema durante sua requisição. Tente novamente.'
@@ -87,7 +88,7 @@ h2 {
 }
 label {
   margin-right: 5px;
-  color: #777;
+  color: #444;
 }
 input[type="text"] {
   flex: 1;
@@ -103,7 +104,7 @@ input[type="button"] {
   margin-left: 10px;
   border: 0;
   border-radius: 5px;
-  background: #237eda;
+  background: #0756a5;
   color: #fff;
   font-weight: bold;
 }
@@ -127,7 +128,7 @@ input[type="button"] {
   border-radius: 5px;
   background: #f9d792;
   border: 1px solid #d2a446;
-  color: #84621d;
+  color: #674808;
   text-align: center;
 }
 @media screen and (max-width: 400px) {

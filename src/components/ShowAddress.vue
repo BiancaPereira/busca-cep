@@ -49,7 +49,14 @@ export default {
       let promise = this.$http.get(`https://viacep.com.br/ws/${this.cleanCEP(this.cep)}/json`)
       promise
         .then(res => res.json())
-        .then(adr => (this.address = adr), err => {
+        .then(adr => {
+          this.address = adr;
+          this.$nextTick(() => {
+            if (!this.address.cep) {
+              this.msg = 'CEP não encontrado. Tente novamente.'
+            }
+          });
+        }, err => {
           if (err) {
             this.msg = 'Houve um problema durante sua requisição. Tente novamente.'
           }
@@ -99,6 +106,11 @@ input[type="button"] {
   background: #237eda;
   color: #fff;
   font-weight: bold;
+}
+input[type="button"]:hover {
+  cursor: pointer;
+  opacity: .8;
+  transition: opacity .5s;
 }
 label,
 input[type="button"] {

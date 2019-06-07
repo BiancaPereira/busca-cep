@@ -72,45 +72,6 @@ export default {
             this.msg = 'Houve um problema durante sua requisição. Tente novamente.'
           }
         })
-
-      var addressInput = 'São Paulo, Brasil'
-
-      var map
-      var marker
-
-      function searchAddress () {
-        var geocoder = new google.maps.Geocoder()
-        geocoder.geocode({address: addressInput}, function (results, status) {
-          if (status === google.maps.GeocoderStatus.OK) {
-            var myResult = results[0].geometry.location
-            createMarker(myResult)
-            map.setCenter(myResult)
-            map.setZoom(11)
-          }
-        })
-      }
-
-      function initialize () {
-        var mapOptions = {
-          center: searchAddress(), // new google.maps.LatLng(40.680898,-8.684059),
-          zoom: 11,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        }
-        map = new google.maps.Map(document.getElementById('map'), mapOptions)
-      }
-      google.maps.event.addDomListener(window, 'load', initialize)
-
-      function createMarker (latlng) {
-        if (marker !== undefined && marker !== '') {
-          marker.setMap(null)
-          marker = ''
-        }
-
-        marker = new google.maps.Marker({
-          map: map,
-          position: latlng
-        })
-      }
     }
   }
 }

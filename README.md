@@ -1,6 +1,8 @@
 # luiza-challenge
 
-> This app makes calls from a API to request address info.
+> This app makes calls from an API to request address info.
+
+In this Single Page Aplication (SPA) I used **Vue.js** with Javascript ECMA 6 and CSS to build an app that calls an API to request address info. This app also use **Google Maps API** to show a map of the location. It also have some unit testing using **Jest**.
 
 ## Build Setup
 
@@ -23,5 +25,3 @@ npm run unit
 # run all tests
 npm test
 ```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).

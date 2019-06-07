@@ -12,14 +12,14 @@
           minlenght="8"
           maxlength="9"
           placeholder="02050-010"
-          @keyup.enter="searchCEP()">
+          @keyup.enter="searchCEP()"
+        >
         <input type="button" value="Buscar" @click="searchCEP()">
       </div>
     </div>
-    <div class="msg-box" v-if="msg">
-      {{ msg }}
-    </div>
+    <div class="msg-box" v-if="msg">{{ msg }}</div>
     <div class="result" v-if="address.cep">
+      <close-btn className="result"/>
       <h2>{{ address.logradouro }}</h2>
       <p>{{ address.bairro }}</p>
       <p>{{ address.localidade }} - {{ address.uf }}</p>
@@ -30,15 +30,16 @@
           :city="address.localidade"
           :district="address.bairro"
           :state="address.uf"
-          :key="address.cep"/>
+          :key="address.cep"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-/* eslint-disable no-undef */
 import Map from './shared/map/Map'
+import CloseBtn from './shared/closeBtn/CloseBtn'
 export default {
   name: 'ShowAddress',
   data () {
@@ -49,29 +50,44 @@ export default {
     }
   },
   components: {
-    'my-map': Map
+    'my-map': Map,
+    'close-btn': CloseBtn
   },
   methods: {
     cleanCEP (cep) {
       return cep.replace(/\D/g, '')
     },
     searchCEP () {
+      // reset msg
       this.msg = ''
-      let promise = this.$http.get(`https://viacep.com.br/ws/${this.cleanCEP(this.cep)}/json`)
+
+      // reset closeBtn
+      const div = document.querySelector('.result')
+      if (div) {
+        div.style.display = 'block'
+      }
+
+      let promise = this.$http.get(
+        `https://viacep.com.br/ws/${this.cleanCEP(this.cep)}/json`
+      )
       promise
         .then(res => res.json())
-        .then(adr => {
-          this.address = adr
-          this.$nextTick(() => {
-            if (!this.address.cep) {
-              this.msg = 'CEP não encontrado. Tente novamente.'
+        .then(
+          adr => {
+            this.address = adr
+            this.$nextTick(() => {
+              if (!this.address.cep) {
+                this.msg = 'CEP não encontrado. Tente novamente.'
+              }
+            })
+          },
+          err => {
+            if (err) {
+              this.msg =
+                'Houve um problema durante sua requisição. Tente novamente.'
             }
-          })
-        }, err => {
-          if (err) {
-            this.msg = 'Houve um problema durante sua requisição. Tente novamente.'
           }
-        })
+        )
     }
   }
 }
@@ -120,17 +136,18 @@ input[type="button"] {
 }
 input[type="button"]:hover {
   cursor: pointer;
-  opacity: .8;
-  transition: opacity .5s;
+  opacity: 0.8;
+  transition: opacity 0.5s;
 }
 label,
 input[type="button"] {
   flex: 0;
 }
 .result {
+  position: relative;
   margin-top: 15px;
   padding: 15px;
-  border: 4px solid #cdcdcd
+  border: 4px solid #cdcdcd;
 }
 .msg-box {
   margin: 20px 0;

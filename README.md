@@ -2,7 +2,7 @@
 
 > This app makes calls from an API to request address info.
 
-In this Single Page Aplication (SPA) I used **Vue.js** with Javascript ECMA 6 and CSS to build an app that calls an API to request address info. This app also use **Google Maps API** to show a map of the location. It also have some unit testing using **Jest**.
+In this Single Page Aplication (SPA) I used **Vue.js** with Javascript ECMA 6 and CSS to build an app that calls an API to request address info. This app also use **Google Maps API** to show a map of the location.
 
 ## Build Setup
 
